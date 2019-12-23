@@ -1,5 +1,5 @@
-const database = require('./database')
+const DB = require('./database')
 
 module.exports = {
-  database
+  DB
 }
