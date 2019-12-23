@@ -1,5 +1,6 @@
-const mongoDB = require('./mongo')(process.env.MONGO_DATABASE)
+const mongoDBConstructor = require('./mongo')
 
 module.exports = {
-  mongoDB
+  mongoDBConstructor,
+  mongoDB: mongoDBConstructor(process.env.MONGO_DATABASE)
 }
