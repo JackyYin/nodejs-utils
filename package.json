@@ -1,0 +1,16 @@
+{
+  "name": "nodejs-utils",
+  "version": "1.0.0",
+  "description": "a common utils for nodejs",
+  "main": "index.js",
+  "dependencies": {
+    "mongodb": "^3.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "JackyYin",
+  "license": "ISC"
+}
