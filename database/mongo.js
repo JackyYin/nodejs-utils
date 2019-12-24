@@ -26,6 +26,7 @@ module.exports = (options = {}) => {
       useUnifiedTopology: true
     }
 
+    console.log(`prepare to connecting to mongo url: ${state.url}`)
     return new Promise((resolve, reject) => {
       MongoClient.connect(state.url, connectOpts, (err, client) => {
         if (err) reject(err)
