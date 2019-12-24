@@ -40,7 +40,7 @@ module.exports = (dbName) => {
     })
   }
 
-	const _findDocuments = (document, query = {}, connection = null) => {
+  const _findDocuments = (document, query = {}, connection = null) => {
     const promise = connection ? Promise.resolve(connection) : _connect()
 
     return promise.then(conn => {
@@ -53,11 +53,11 @@ module.exports = (dbName) => {
         })
       })
     })
-	}
+  }
 
   return {
     connect: _connect,
     insert: _insertDocuments,
-		find: _findDocuments
+    find: _findDocuments
   }
 }
