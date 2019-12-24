@@ -1,26 +1,37 @@
 const MongoClient = require('mongodb').MongoClient
 
-const {
-  MONGO_HOST,
-  MONGO_PORT,
-  MONGO_USERNAME,
-  MONGO_PASSWORD
-} = process.env
+const genConnectionUrl = (options) => {
+  const _genCategoryURL = (url, username, password, host, port) => {
+    return url ? url : (host && port) ? (username && password) ? `mongodb://${username}:${password}@${host}:${port}/` : `mongodb://${host}:${port}` : null
+  }
 
-const MONGO_URL = process.env.MONGO_URL || `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/`
+  const url = _genCategoryURL(
+    options.url,
+    options.username,
+    options.password,
+    options.host || 'localhost',
+    options.port || 27017
+  )
+  return url ? url : `mongodb://localhost:27017`
+}
 
-module.exports = (dbName) => {
+module.exports = (options = {}) => {
+  const state = {
+    url: genConnectionUrl(options),
+    db: options.db || process.env.MONGO_DATABASE
+  }
+
   const _connect = () => {
-    const options = {
+    const connectOpts = {
       useUnifiedTopology: true
     }
 
     return new Promise((resolve, reject) => {
-      MongoClient.connect(MONGO_URL, options, (err, client) => {
+      MongoClient.connect(state.url, connectOpts, (err, client) => {
         if (err) reject(err)
-        // console.log(`connected to Mongo DB!`)
+        console.log(`connected to Mongo DB!`)
 
-        resolve(client.db(dbName))
+        resolve(client.db(state.db))
       })
     })
   }
